@@ -4,7 +4,11 @@ import bodyParser from "koa-bodyparser";
 import Koa from "koa";
 import logger from "./config/logger.winston";
 
+import jwt from "koa-jwt";
+
 import { request } from "./middleware/trace.http";
+
+import { router } from "./routes/routes";
 
 import helmet from "koa-helmet";
 import cors from "@koa/cors";
@@ -43,6 +47,8 @@ createConnection({
     app.use(cors());
     app.use(rTracer.koaMiddleware());
     app.use(bodyParser());
+    app.use(jwt({ secret: process.env.JWT_SECRET }).unless({ path: [/^\/swagger-/] }));
+    app.use(router.routes()).use(router.allowedMethods());
     app.use(request);
     app.listen(Number(process.env.PORT), () => {
       logger.info(`Server running on port ${Number(process.env.PORT)}`);
