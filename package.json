@@ -1,0 +1,52 @@
+{
+  "name": "user-service",
+  "version": "1.0.0",
+  "description": "User Service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "clean": "rm -rf build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amitsinha7/User-Service.git"
+  },
+  "keywords": [
+    "KOA",
+    "Microservice"
+  ],
+  "author": "Amit Kumar Sinha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amitsinha7/User-Service/issues"
+  },
+  "homepage": "https://github.com/amitsinha7/User-Service#readme",
+  "dependencies": {
+    "@types/node": "^16.0.0",
+    "@types/sequelize": "^4.28.10",
+    "cls-rtracer": "^2.6.0",
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-better-router": "^2.1.1",
+    "koa-body": "^4.2.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "sequelize-cli": "^6.2.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.4",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.2",
+    "nodemon": "^2.0.9",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  }
+}
