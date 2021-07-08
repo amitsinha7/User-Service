@@ -8,7 +8,7 @@ import jwt from "koa-jwt";
 
 import { request } from "./middleware/trace.http";
 
-import { router } from "./routes/routes";
+import { router } from "./routes/router";
 
 import helmet from "koa-helmet";
 import cors from "@koa/cors";
@@ -17,6 +17,8 @@ import { createConnection } from "typeorm";
 import "reflect-metadata";
 
 const rTracer = require("cls-rtracer");
+
+const swagger = require("swagger-injector");
 
 createConnection({
   type: "postgres",
@@ -30,26 +32,23 @@ createConnection({
   .then(async () => {
     const app = new Koa();
 
-    // Provides important security headers to make your app more secure
     app.use(
-      helmet.contentSecurityPolicy({
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com"],
-          styleSrc: ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com", "fonts.googleapis.com"],
-          fontSrc: ["'self'", "fonts.gstatic.com"],
-          imgSrc: ["'self'", "data:", "online.swagger.io", "validator.swagger.io"]
-        }
+      swagger.koa({
+        path: `${__dirname}/swagger.json`,
+        route: "/swagger"
       })
     );
-
-    // Enable cors with default options
+    // Provides important security headers to make your app more secure
+    app.use(helmet);
     app.use(cors());
     app.use(rTracer.koaMiddleware());
     app.use(bodyParser());
-    app.use(jwt({ secret: process.env.JWT_SECRET }).unless({ path: [/^\/swagger-/] }));
-    app.use(router.routes()).use(router.allowedMethods());
     app.use(request);
+
+    app.use(jwt({ secret: process.env.JWT_SECRET }).unless({ path: [/^\/swagger/] }));
+
+    app.use(router.routes()).use(router.allowedMethods());
+
     app.listen(Number(process.env.PORT), () => {
       logger.info(`Server running on port ${Number(process.env.PORT)}`);
     });
