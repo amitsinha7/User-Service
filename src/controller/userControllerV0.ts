@@ -97,7 +97,6 @@ class UserControllerV0 {
       } else {
         logger.info(`Deleting User By Id Provided`);
         await userService.deleteUser(userId);
-        ctx.body = "User Deleted Successfully ";
         ctx.status = 204;
       }
     } catch (error) {
