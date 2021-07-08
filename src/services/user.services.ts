@@ -1,14 +1,13 @@
 import { IUser, IUserRequest } from "../request/user.request";
 import logger from "../config/logger.winston";
 import { userRepository } from "../repository/user.repository";
-import * as _ from "lodash";
 import { User } from "../models/user";
 class UserService {
   public async getAllUserDetails() {
     let userDetails: IUser[] = [];
     try {
       const result = await userRepository.getAllUsers();
-      if (!_.isEmpty(result)) {
+      if (result !== null) {
         userDetails = JSON.parse(JSON.stringify(result));
       }
     } catch (error) {
@@ -22,7 +21,7 @@ class UserService {
     let user: IUser;
     try {
       const result = await userRepository.getUserById(id);
-      if (!_.isEmpty(result)) {
+      if (result !== null) {
         user = JSON.parse(JSON.stringify(result));
       }
     } catch (error) {

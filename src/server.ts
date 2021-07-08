@@ -1,6 +1,5 @@
 import "./config/env";
 import bodyParser from "koa-bodyparser";
-import jwt from "koa-jwt";
 import Koa from "koa";
 import logger from "./config/logger.winston";
 
@@ -19,7 +18,9 @@ import rTracer from "cls-rtracer";
 import { oauth } from "./middleware/oauth";
 
 const swagger = require("swagger-injector");
+import Boom from "@hapi/boom";
 
+const app = new Koa();
 createConnection({
   type: "postgres",
   host: process.env.POSTGRES_HOST || "localhost",
@@ -32,7 +33,6 @@ createConnection({
   logging: true
 })
   .then(async () => {
-    const app = new Koa();
     app.use(
       swagger.koa({
         path: `${__dirname}/swagger.json`,
@@ -54,9 +54,18 @@ createConnection({
     app.use(oauth);
 
     app.use(router.routes()).use(router.allowedMethods());
-
-    app.listen(Number(process.env.PORT), () => {
-      logger.info(`Server running on port ${Number(process.env.PORT)}`);
-    });
+    app.use(
+      router.allowedMethods({
+        throw: true,
+        notImplemented: () => Boom.notImplemented(),
+        methodNotAllowed: () => Boom.methodNotAllowed()
+      })
+    );
   })
   .catch((error: string) => logger.error("TypeORM connection error: ", error));
+
+const server = app.listen(Number(process.env.PORT)).on("error", err => {
+  logger.error(`Error At Starting Application on port ${err}`);
+});
+logger.info(`Started listening on port ${Number(process.env.PORT)}`);
+export { server };

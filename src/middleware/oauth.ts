@@ -1,7 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import logger from "../config/logger.winston";
 import { Context } from "koa";
-import fs from "fs-extra";
 
 const oauth = async (ctx: Context, next: Function) => {
   if (ctx.url === "/getJWTToken") {

@@ -9,9 +9,9 @@
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "build": " npm run build-ts",
     "start": "npm run build-ts && node dist/server.js",
-    "test": "jest",
-    "test:coverage": "jest --collect-coverage",
-    "test:watch": "jest --watch"
+    "test": "mocha -r ts-node/register src/tests/**/*.test.ts",
+    "cover": "nyc npm test",
+    "testWithCoverage": "nyc -r lcov -e .ts -x \"*.test.ts\" mocha -r ts-node/register src/tests/**/*.test.ts --require src/config/env.ts && nyc report"
   },
   "repository": {
     "type": "git",
@@ -24,54 +24,73 @@
   },
   "homepage": "https://github.com/amitsinha7/User-Service#readme",
   "dependencies": {
+    "@hapi/boom": "^9.1.3",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "class-validator": "^0.13.1",
     "cls-rtracer": "^2.6.0",
     "dotenv": "^10.0.0",
-    "fs-extra": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-helmet": "^6.1.0",
     "koa-jwt": "^4.0.1",
     "koa-router": "^10.0.0",
+    "mocha": "^9.0.2",
     "path": "^0.12.7",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "swagger-injector": "^4.0.1",
+    "ts-mockito": "^2.6.1",
     "typeorm": "^0.2.34",
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.12",
-    "@types/jest": "^26.0.24",
+    "@types/chai": "^4.2.21",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/koa": "^2.13.4",
     "@types/koa__cors": "^3.0.3",
     "@types/koa-bodyparser": "^4.3.2",
     "@types/koa-helmet": "^6.0.4",
     "@types/koa-router": "^7.4.3",
-    "@types/lodash": "^4.14.171",
+    "@types/mocha": "^8.2.3",
     "@types/node": "^16.0.1",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "eslint": "^7.30.0",
-    "jest": "^27.0.6",
     "nodemon": "^2.0.9",
-    "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.5"
   },
-  "jest": {
-    "roots": [
-      "<rootDir>"
+  "nyc": {
+    "include": [
+      "src/*.ts",
+      "src/**/*.ts"
     ],
-    "testMatch": [
-      "**/tests/**/*.+(ts|tsx|js)"
+    "exclude": [
+      "typings",
+      "src/**/*.d.ts",
+      "node_modules/**/**",
+      "dist/**/*",
+      "src/tests/**",
+      "src/models/**",
+      "src/repository/**",
+      "src/request/**",
+      "src/response/**",
+      "src/config/**",
+      "src/middleware/**",
+      "src/client/**"
     ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    }
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "html",
+      "lcov"
+    ],
+    "all": true
   }
 }

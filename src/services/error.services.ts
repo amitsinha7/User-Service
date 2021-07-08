@@ -2,7 +2,6 @@ import { errorRepository } from "../repository/error.repository";
 import { IErrorInfo, IUIError, IUIErrorInfos, IUIErrorInfo } from "../response/general";
 import logger from "../config/logger.winston";
 import { ERROR_MSG } from "../constants/user.constant";
-import * as _ from "lodash";
 
 /**
  * Error service
@@ -58,7 +57,7 @@ class ErrorService {
     let errorInfo: IErrorInfo = {} as IErrorInfo;
     try {
       const result = await errorRepository.getErrorMessage(errorMsg);
-      if (!_.isEmpty(result)) {
+      if (result !== null) {
         errorInfo = JSON.parse(JSON.stringify(result));
       }
     } catch (error) {

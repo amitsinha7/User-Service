@@ -1,7 +1,7 @@
 import { IUserRequestPo } from "../request/user.request";
 import { ERROR_MSG } from "../constants/user.constant";
 import logger from "../config/logger.winston";
-import * as _ from "lodash";
+
 class Validator {
   public validateUserRequest(userRequestPo: IUserRequestPo) {
     let isProceed = false;
