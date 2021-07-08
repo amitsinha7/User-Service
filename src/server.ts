@@ -1,10 +1,8 @@
 import "./config/env";
 import bodyParser from "koa-bodyparser";
-
+import jwt from "koa-jwt";
 import Koa from "koa";
 import logger from "./config/logger.winston";
-
-import jwt from "koa-jwt";
 
 import { request } from "./middleware/trace.http";
 
@@ -17,6 +15,8 @@ import { createConnection } from "typeorm";
 import "reflect-metadata";
 
 import rTracer from "cls-rtracer";
+
+import { oauth } from "./middleware/oauth";
 
 const swagger = require("swagger-injector");
 
@@ -33,7 +33,6 @@ createConnection({
 })
   .then(async () => {
     const app = new Koa();
-
     app.use(
       swagger.koa({
         path: `${__dirname}/swagger.json`,
@@ -41,17 +40,20 @@ createConnection({
       })
     );
     // Provides important security headers to make your app more secure
-    // app.use(helmet);
-    // app.use(cors());
+    // https://helmetjs.github.io/
+    app.use(
+      helmet({
+        referrerPolicy: { policy: "no-referrer" }
+      })
+    );
+    app.use(cors());
     app.use(rTracer.koaMiddleware());
     app.use(bodyParser());
     app.use(request);
-    if (process.env.NODE_ENV !== "localhost") {
-      // app.use(oauth);
-    }
-    // app.use(jwt({ secret: process.env.JWT_SECRET }).unless({ path: [/^\/swagger/] }));
 
-    app.use(router.routes());
+    app.use(oauth);
+
+    app.use(router.routes()).use(router.allowedMethods());
 
     app.listen(Number(process.env.PORT), () => {
       logger.info(`Server running on port ${Number(process.env.PORT)}`);

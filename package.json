@@ -29,6 +29,8 @@
     "class-validator": "^0.13.1",
     "cls-rtracer": "^2.6.0",
     "dotenv": "^10.0.0",
+    "fs-extra": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-helmet": "^6.1.0",
@@ -42,7 +44,9 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.12",
     "@types/jest": "^26.0.24",
+    "@types/jsonwebtoken": "^8.5.4",
     "@types/koa": "^2.13.4",
     "@types/koa__cors": "^3.0.3",
     "@types/koa-bodyparser": "^4.3.2",
