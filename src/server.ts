@@ -19,6 +19,7 @@ import { oauth } from "./middleware/oauth";
 
 const swagger = require("swagger-injector");
 import Boom from "@hapi/boom";
+import * as json from "koa-json";
 
 const app = new Koa();
 createConnection({
@@ -30,7 +31,7 @@ createConnection({
   database: process.env.POSTGRES_DATABASE || "apidb",
   entities: ["src/models/*.ts", "./build/src/models/*.js"],
   synchronize: true,
-  logging: true
+  logging: false
 })
   .then(async () => {
     app.use(
