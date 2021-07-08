@@ -16,7 +16,7 @@ import { createConnection } from "typeorm";
 
 import "reflect-metadata";
 
-const rTracer = require("cls-rtracer");
+import rTracer from "cls-rtracer";
 
 const swagger = require("swagger-injector");
 

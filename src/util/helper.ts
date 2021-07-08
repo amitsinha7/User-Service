@@ -7,7 +7,7 @@ import { User } from "../models/user";
 class Helper {
   public mapUserRequest(userRequestPO: IUserRequestPo) {
     logger.info(`In Helper and Mapping the UserRequest :: ${userRequestPO.email}`);
-    let user: User = {} as User;
+    const user: User = {} as User;
 
     try {
       if (userRequestPO.email != null) {
@@ -33,7 +33,7 @@ class Helper {
   public mapUserResponse(userRequest: IUserRequest) {
     logger.info(`In Helper and Mapping the UserRequest :: ${userRequest.email}`);
 
-    let userResponePo: IUserResponsePo = {} as IUserResponsePo;
+    const userResponePo: IUserResponsePo = {} as IUserResponsePo;
     try {
       if (userRequest.email != null) {
         userResponePo.email = userRequest.email;

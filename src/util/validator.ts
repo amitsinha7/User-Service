@@ -6,7 +6,7 @@ class Validator {
   public validateUserRequest(userRequestPo: IUserRequestPo) {
     let isProceed = false;
     try {
-      logger.info(`Validating User Request`);
+      logger.info("Validating User Request");
 
       if (userRequestPo != null) {
         if (userRequestPo.firstName == null) {

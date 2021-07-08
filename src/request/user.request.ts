@@ -1,19 +1,19 @@
 export interface IUser {
-  id: Number;
-  firstName: String;
-  lastName: String;
-  email: String;
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
 export interface IUserRequestPo {
-  firstName: String;
-  lastName: String;
-  email: String;
-  id: Number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  id: number;
 }
 
 export interface IUserRequest {
-  firstName: String;
-  lastName: String;
-  email: String;
+  firstName: string;
+  lastName: string;
+  email: string;
 }

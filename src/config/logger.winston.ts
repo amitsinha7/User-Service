@@ -1,5 +1,5 @@
-import winston from "winston";
-const rTracer = require("cls-rtracer");
+import * as winston from "winston";
+import rTracer from "cls-rtracer";
 
 // a custom format that outputs request id
 const rTracerFormat = winston.format.printf(info => {

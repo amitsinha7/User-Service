@@ -14,13 +14,13 @@ class ErrorService {
    * @returns
    */
   public async getUIError(errorMsg: string) {
-    let uIErrorInfos: IUIErrorInfos = {} as IUIErrorInfos;
-    let uIErrorInfo: IUIErrorInfo = {} as IUIErrorInfo;
-    let uIError: IUIError = {} as IUIError;
-    let uiErrorArray: IUIErrorInfo[] = [];
+    const uIErrorInfos: IUIErrorInfos = {} as IUIErrorInfos;
+    const uIErrorInfo: IUIErrorInfo = {} as IUIErrorInfo;
+    const uIError: IUIError = {} as IUIError;
+    const uiErrorArray: IUIErrorInfo[] = [];
 
     try {
-      let errorInfo = await this.getErrorMessages(errorMsg);
+      const errorInfo = await this.getErrorMessages(errorMsg);
       if (errorInfo != null && errorInfo.errorMessage != null && errorInfo.httpStatusCode != null) {
         uIErrorInfo.errorCode = errorInfo.errorCode;
         uIErrorInfo.errorMessage = errorInfo.errorMessage;
@@ -57,7 +57,7 @@ class ErrorService {
   private async getErrorMessages(errorMsg: string) {
     let errorInfo: IErrorInfo = {} as IErrorInfo;
     try {
-      let result = await errorRepository.getErrorMessage(errorMsg);
+      const result = await errorRepository.getErrorMessage(errorMsg);
       if (!_.isEmpty(result)) {
         errorInfo = JSON.parse(JSON.stringify(result));
       }

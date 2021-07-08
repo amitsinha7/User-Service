@@ -10,7 +10,7 @@ class UserRepository {
     const userRepository: Repository<User> = getManager().getRepository(User);
 
     try {
-      let startTime = new Date().getTime();
+      const startTime = new Date().getTime();
       result = await userRepository.find();
       logger.info(`Time Taken  For DB Operation :: ${new Date().getTime() - startTime} ms`);
     } catch (error) {
@@ -23,13 +23,13 @@ class UserRepository {
     const userRepository: Repository<User> = getManager().getRepository(User);
     try {
       logger.info(`Get User By Id :: ${id}`);
-      let startTime = new Date().getTime();
+      const startTime = new Date().getTime();
       const user: User | undefined = await userRepository.findOne(id);
       if (user) {
         logger.info(`Time Taken  For DB Operation :: ${new Date().getTime() - startTime} ms`);
         return user;
       } else {
-        logger.error(`Error While retrieving User By Id`);
+        logger.error("Error While retrieving User By Id");
         throw ERROR_MSG.USER_NOT_FOUND_IN_DB_BY_ID;
       }
     } catch (error) {
@@ -41,7 +41,7 @@ class UserRepository {
     const userRepository: Repository<User> = getManager().getRepository(User);
 
     try {
-      let startTime = new Date().getTime();
+      const startTime = new Date().getTime();
       if (await userRepository.findOne({ email: user.email })) {
         throw ERROR_MSG.EMAIL_ALREADY_EXIST;
       } else {
@@ -58,7 +58,7 @@ class UserRepository {
     const userRepository: Repository<User> = getManager().getRepository(User);
 
     try {
-      let startTime = new Date().getTime();
+      const startTime = new Date().getTime();
       // check if a user with the specified id exists
       if (!(await userRepository.findOne(user.id))) {
         throw ERROR_MSG.USER_DOES_NOT_EXIST_BY_ID;
@@ -78,7 +78,7 @@ class UserRepository {
     const userRepository: Repository<User> = getManager().getRepository(User);
 
     try {
-      let startTime = new Date().getTime();
+      const startTime = new Date().getTime();
       // check if a user with the specified id exists
       const userToRemove: User | undefined = await userRepository.findOne(id || 0);
       if (!userToRemove) {
