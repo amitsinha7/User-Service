@@ -55,6 +55,44 @@ class UserRepository {
     }
     return userSaved;
   }
+  public async updateUser(user: User, id: number) {
+    const userRepository: Repository<User> = getManager().getRepository(User);
+
+    try {
+      let startTime = new Date().getTime();
+      // check if a user with the specified id exists
+      if (!(await userRepository.findOne(user.id))) {
+        throw ERROR_MSG.USER_DOES_NOT_EXIST_BY_ID;
+      } else if (await userRepository.findOne({ id: Not(Equal(user.id)), email: user.email })) {
+        throw ERROR_MSG.USER_DOES_NOT_EXIST_BY_ID_AND_EMAIL;
+      } else {
+        await userRepository.save(user);
+      }
+      logger.info(`Time Taken  For DB Operation :: ${new Date().getTime() - startTime} ms`);
+    } catch (error) {
+      logger.error(`Error At updateUser: ${error}`);
+      throw ERROR_MSG.SYSTEM_ERROR;
+    }
+  }
+
+  public async deleteUser(id: number) {
+    const userRepository: Repository<User> = getManager().getRepository(User);
+
+    try {
+      let startTime = new Date().getTime();
+      // check if a user with the specified id exists
+      const userToRemove: User | undefined = await userRepository.findOne(id || 0);
+      if (!userToRemove) {
+        throw ERROR_MSG.USER_DOES_NOT_EXIST_BY_ID;
+      } else {
+        await userRepository.remove(userToRemove);
+      }
+      logger.info(`Time Taken  For DB Operation :: ${new Date().getTime() - startTime} ms`);
+    } catch (error) {
+      logger.error(`Error At updateUser: ${error}`);
+      throw ERROR_MSG.SYSTEM_ERROR;
+    }
+  }
 }
 
 export const userRepository = new UserRepository();

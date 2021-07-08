@@ -40,6 +40,23 @@ class UserService {
       throw error;
     }
   }
+
+  public async updateUser(user: User, id: number) {
+    try {
+      await userRepository.updateUser(user, id);
+    } catch (error) {
+      logger.error(`Error At updateUser in User Service : ${error}`);
+      throw error;
+    }
+  }
+  public async deleteUser(id: number) {
+    try {
+      await userRepository.deleteUser(id);
+    } catch (error) {
+      logger.error(`Error At deleteUser in User Service : ${error}`);
+      throw error;
+    }
+  }
 }
 
 export const userService = new UserService();

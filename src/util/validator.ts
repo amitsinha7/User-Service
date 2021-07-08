@@ -7,6 +7,7 @@ class Validator {
     let isProceed = false;
     try {
       logger.info(`Validating User Request`);
+
       if (userRequestPo != null) {
         if (userRequestPo.firstName == null) {
           throw ERROR_MSG.FIRST_NAME_MISSING;

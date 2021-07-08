@@ -6,5 +6,7 @@ export const ERROR_MSG = {
   EMAIL_ALREADY_EXIST: "901203",
   USER_ID_NOT_VALID: "901204",
   USER_NOT_FOUND_IN_DB_BY_ID: "901205",
-  DATABASE_ERROR_MESSAGE: "The connection to our central database is currently not available. Please try again later. If the problem persists, please contact us for further information."
+  USER_DOES_NOT_EXIST_BY_ID: "901206",
+  USER_DOES_NOT_EXIST_BY_ID_AND_EMAIL: "901207",
+  DATABASE_ERROR_MESSAGE: "The connection to our central database is currently not available. Please try again later."
 };
