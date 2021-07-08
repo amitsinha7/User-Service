@@ -20,6 +20,9 @@ class Helper {
       if (userRequestPO.lastName != null) {
         user.last_name = String(userRequestPO.lastName);
       }
+      if (userRequestPO.id != null) {
+        user.id = Number(userRequestPO.lastName);
+      }
     } catch (error) {
       logger.error(`Error While mapping the request :: ${error}`);
       throw ERROR_MSG.SYSTEM_ERROR;

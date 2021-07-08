@@ -55,7 +55,7 @@ class UserRepository {
     }
     return userSaved;
   }
-  public async updateUser(user: User, id: number) {
+  public async updateUser(user: User) {
     const userRepository: Repository<User> = getManager().getRepository(User);
 
     try {

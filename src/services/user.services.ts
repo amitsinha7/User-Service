@@ -41,9 +41,9 @@ class UserService {
     }
   }
 
-  public async updateUser(user: User, id: number) {
+  public async updateUser(user: User) {
     try {
-      await userRepository.updateUser(user, id);
+      await userRepository.updateUser(user);
     } catch (error) {
       logger.error(`Error At updateUser in User Service : ${error}`);
       throw error;

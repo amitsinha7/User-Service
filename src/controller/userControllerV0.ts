@@ -73,10 +73,11 @@ class UserControllerV0 {
       if (userId === undefined || userId === null || isNaN(userId * 1)) {
         logger.error(`Id Must be a number`);
         throw ERROR_MSG.USER_ID_NOT_VALID;
-      } else if (validator.validateUserRequest(userRequestPO)) {
+      } else {
+        userRequestPO.id = userId;
         let user: User = helper.mapUserRequest(userRequestPO);
         logger.info(`Mapping and validation completed ... Before DB Save : ${user.email}`);
-        await userService.updateUser(user, userId);
+        await userService.updateUser(user);
         ctx.body = "User Updated Successfully ";
         ctx.status = 201;
       }

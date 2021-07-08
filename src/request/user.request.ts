@@ -9,6 +9,7 @@ export interface IUserRequestPo {
   firstName: String;
   lastName: String;
   email: String;
+  id: Number;
 }
 
 export interface IUserRequest {
