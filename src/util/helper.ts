@@ -11,14 +11,14 @@ class Helper {
     let user: User = {} as User;
 
     try {
-      if (userRequestPO.email === null) {
-        user.email = userRequestPO.email;
+      if (userRequestPO.email != null) {
+        user.email = String(userRequestPO.email);
       }
-      if (userRequestPO.firstName === null) {
-        user.firstName = userRequestPO.firstName;
+      if (userRequestPO.firstName != null) {
+        user.first_name = String(userRequestPO.firstName);
       }
-      if (userRequestPO.lastName === null) {
-        user.lastName = userRequestPO.lastName;
+      if (userRequestPO.lastName != null) {
+        user.last_name = String(userRequestPO.lastName);
       }
     } catch (error) {
       logger.error(`Error While mapping the request :: ${error}`);
@@ -28,17 +28,18 @@ class Helper {
     return user;
   }
 
-  public mapUserResponse(userRequest: IUserRequest, userResponePo: IUserResponsePo) {
+  public mapUserResponse(userRequest: IUserRequest) {
     logger.info(`In Helper and Mapping the UserRequest :: ${userRequest.email}`);
 
+    let userResponePo: IUserResponsePo = {} as IUserResponsePo;
     try {
-      if (userRequest.email === null) {
+      if (userRequest.email != null) {
         userResponePo.email = userRequest.email;
       }
-      if (userRequest.firstName === null) {
+      if (userRequest.firstName != null) {
         userResponePo.firstName = userRequest.firstName;
       }
-      if (userRequest.lastName === null) {
+      if (userRequest.lastName != null) {
         userResponePo.lastName = userRequest.lastName;
       }
     } catch (error) {

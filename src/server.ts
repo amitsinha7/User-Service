@@ -15,7 +15,6 @@ import cors from "@koa/cors";
 import { createConnection } from "typeorm";
 
 import "reflect-metadata";
-import { userService } from "./services/user.services";
 
 const rTracer = require("cls-rtracer");
 
