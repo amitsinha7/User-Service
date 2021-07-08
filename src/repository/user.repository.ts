@@ -1,7 +1,7 @@
 import logger from "../config/logger.winston";
 import { ERROR_MSG } from "../constants/user.constant";
 import { getManager, Repository, Not, Equal, Like } from "typeorm";
-import { User } from "../entity/user";
+import { User } from "../models/user";
 
 class UserRepository {
   /**

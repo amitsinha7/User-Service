@@ -15,6 +15,7 @@ import cors from "@koa/cors";
 import { createConnection } from "typeorm";
 
 import "reflect-metadata";
+import { userService } from "./services/user.services";
 
 const rTracer = require("cls-rtracer");
 
@@ -27,7 +28,9 @@ createConnection({
   username: process.env.POSTGRES_USER || "user",
   password: process.env.POSTGRES_PASSWORD || "pass",
   database: process.env.POSTGRES_DATABASE || "apidb",
-  entities: [process.env.DBENTITIESPATH]
+  entities: ["src/models/*.ts", "./build/src/models/*.js"],
+  synchronize: true,
+  logging: true
 })
   .then(async () => {
     const app = new Koa();
@@ -39,15 +42,17 @@ createConnection({
       })
     );
     // Provides important security headers to make your app more secure
-    app.use(helmet);
-    app.use(cors());
+    // app.use(helmet);
+    // app.use(cors());
     app.use(rTracer.koaMiddleware());
     app.use(bodyParser());
     app.use(request);
+    if (process.env.NODE_ENV !== "localhost") {
+      // app.use(oauth);
+    }
+    // app.use(jwt({ secret: process.env.JWT_SECRET }).unless({ path: [/^\/swagger/] }));
 
-    app.use(jwt({ secret: process.env.JWT_SECRET }).unless({ path: [/^\/swagger/] }));
-
-    app.use(router.routes()).use(router.allowedMethods());
+    app.use(router.routes());
 
     app.listen(Number(process.env.PORT), () => {
       logger.info(`Server running on port ${Number(process.env.PORT)}`);

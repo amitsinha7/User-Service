@@ -1,7 +1,7 @@
 import logger from "../config/logger.winston";
 import { ERROR_MSG } from "../constants/user.constant";
 import { getManager, Repository } from "typeorm";
-import { DBError } from "../entity/error";
+import { DBError } from "../models/error";
 
 /**
  * Error message repository
