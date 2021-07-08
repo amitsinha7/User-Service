@@ -1,10 +1,13 @@
 import { Context } from "koa";
-import { validate, ValidationError } from "class-validator";
-import { IUser } from "../request/user.request";
+import { IUser, IUserRequest, IUserRequestPo } from "../request/user.request";
 import { IErrorInfo } from "../response/general";
 import logger from "../config/logger.winston";
 import { userService } from "../services/user.services";
 import { errorService } from "../services/error.services";
+import { validator } from "../util/validator";
+import { IUserResponsePo } from "../response/user.response";
+import { helper } from "../util/helper";
+import { User } from "../models/user";
 
 class UserControllerV0 {
   public async getUsers(ctx: Context) {
@@ -20,6 +23,23 @@ class UserControllerV0 {
       ctx.body = await errorService.getUIError(error);
     }
   }
-}
 
+  public async createUser(ctx: Context) {
+    let error: IErrorInfo = {} as IErrorInfo;
+    logger.info(`To Create New User`);
+    try {
+      const userRequestPO: IUserRequestPo = JSON.parse(ctx.request.rawBody);
+      if (validator.validateUserRequest(userRequestPO)) {
+        let userResponse: IUserResponsePo = {} as IUserResponsePo;
+        let user: User = helper.mapUserRequest(userRequestPO);
+        logger.info(`Mapping and validation completed ... Before DB Save : ${user.email}`);
+        let createdUser = await userService.createUser(user);
+        ctx.body = helper.mapUserResponse(createdUser, userResponse);
+      }
+    } catch (error) {
+      logger.error(`Error While retrieving all users :  ${error}`);
+      ctx.body = await errorService.getUIError(error);
+    }
+  }
+}
 export const userControllerV0 = new UserControllerV0();

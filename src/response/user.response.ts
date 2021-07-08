@@ -1,4 +1,5 @@
-import { IUser } from "../request/user.request";
-export interface IUsers {
-  users: IUser[];
+export interface IUserResponsePo {
+  firstName: String;
+  lastName: String;
+  email: String;
 }

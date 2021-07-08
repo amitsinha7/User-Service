@@ -17,5 +17,5 @@ export class User {
   })
   @Length(10, 100)
   @IsEmail()
-  email: string;
+  email: String;
 }
