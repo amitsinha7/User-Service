@@ -27,13 +27,13 @@ class UserControllerV0 {
 
   public async getUser(ctx: Context) {
     logger.info(`Entry To getUser`);
+    let userId = ctx.params.id;
     try {
-      const userId = ctx.params.id;
-      logger.info(`Getting User Details for User Id ` + userId);
-      if (isNaN(userId)) {
-        logger.error(`Id Must be a Number` + userId);
+      if (userId === undefined || userId === null || isNaN(userId * 1)) {
+        logger.error(`Id Must be a number`);
         throw ERROR_MSG.USER_ID_NOT_VALID;
       } else {
+        logger.info(`Getting User Details for User Id`);
         let user: IUser = await userService.getUserById(userId);
         logger.info(`After Getting all Users`);
         ctx.body = user;

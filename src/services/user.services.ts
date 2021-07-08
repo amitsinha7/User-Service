@@ -18,10 +18,10 @@ class UserService {
     return userDetails;
   }
 
-  public async getUserById(id: Number) {
+  public async getUserById(id: number) {
     let user: IUser;
     try {
-      const result = await userRepository.getAllUsers();
+      const result = await userRepository.getUserById(id);
       if (!_.isEmpty(result)) {
         user = JSON.parse(JSON.stringify(result));
       }
