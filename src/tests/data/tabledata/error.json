@@ -1,0 +1,18 @@
+[
+  {
+    "errorCode": "9011000",
+    "businessContext": "User_Service",
+    "errorMessage": "Unfortunately, we experienced some technical difficulties while processing your request. Please contact the system administrator.",
+    "errorReference": null,
+    "httpStatusCode": 200,
+    "severity": null
+  },
+  {
+    "errorCode": "9011001",
+    "businessContext": "User_Service",
+    "errorMessage": "Unfortunately, your device token seems to be invalid. Please try to reconnect your device.",
+    "errorReference": null,
+    "httpStatusCode": 200,
+    "severity": null
+  }
+]

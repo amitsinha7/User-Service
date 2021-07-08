@@ -1,17 +1,18 @@
-import { userRepository } from "../../repository/user.repository";
 import * as chai from "chai";
-import "mocha";
+import chaiHttp = require("chai-http");
+chai.use(chaiHttp);
+import { Response } from "superagent";
+
+import { assert, expect, request } from "chai";
+import { userRepository } from "../../repository/user.repository";
+
 import { anyString, anything, spy, when } from "ts-mockito";
 import { User } from "../../models/user";
 import { Error } from "../../models/error";
-import chaiHttp = require("chai-http");
 import { server } from "../../server";
-import { IUIErrorInfo } from "../../response/general";
-import * as userResponse from "../data/user/users.json";
-chai.use(chaiHttp);
-chai.should();
-let assert = chai.assert;
-let expect = chai.expect;
+import { UserResponse } from "../data/user/users";
+import * as errorData from "../data/tabledata/error.json";
+
 const user: User = new User();
 user.id = 0;
 user.first_name = "Amit";
@@ -26,21 +27,30 @@ error.errorReference = "INFO";
 error.httpStatusCode = 200;
 error.severity = "3";
 
-describe("User Services MicroServices", () => {
-  describe("Invalid device token", function () {
-    this.beforeAll(async function () {
-      let userRepo = spy(userRepository);
-      let users = JSON.parse(JSON.stringify(userResponse));
-      when(await userRepo.getAllUsers()).thenReturn({ users });
+describe("UserControllerV)", () => {
+  describe("Route GET /v0/users", () => {
+    it("Should GET to /v0/users", async () => {
+      const res: Response = await request("http://0.0.0.0:3000").get("/v0/users");
+      expect(res).to.have.status(200);
+      expect(res).to.be.a("object");
     });
-    it("Get All User Details ", async () => {
-      return chai
-        .request(server)
-        .get("/v0/users")
-        .then(res => {
-          expect(res).to.have.status(200);
-          assert.equal(JSON.stringify(res.body), JSON.stringify(userResponse));
-        });
+  });
+});
+
+describe("Invalid passenger request", function () {
+  this.beforeAll(function () {
+    const spyUserRepository = spy(userRepository);
+    when(spyUserRepository.getAllUsers()).thenCall(function (code) {
+      return errorData.find((e: { errorCode: any }) => e.errorCode === code);
     });
+  });
+  it("should return 200", async () => {
+    return chai
+      .request(server)
+      .get("/v0/users")
+      .then(res => {
+        expect(res).to.have.status(200);
+        assert.equal(JSON.stringify(res.body), JSON.stringify(UserResponse.getAllUsers));
+      });
   });
 });

@@ -1,6 +1,7 @@
 import logger from "../config/logger.winston";
 import { Context } from "koa";
 
+/* eslint-disable */
 const request = async (ctx: Context, next: Function) => {
   const startTime = new Date().getTime();
   if (ctx.request.rawBody != null) {
