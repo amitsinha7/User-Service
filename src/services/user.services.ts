@@ -34,7 +34,7 @@ class UserService {
 
   public async createUser(user: User) {
     try {
-      return await userRepository.createUser(user);
+      await userRepository.createUser(user);
     } catch (error) {
       logger.error(`Error At createUser in User Service : ${error}`);
       throw error;

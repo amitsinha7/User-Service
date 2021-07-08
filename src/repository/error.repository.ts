@@ -1,7 +1,7 @@
 import logger from "../config/logger.winston";
 import { ERROR_MSG } from "../constants/user.constant";
 import { getManager, Repository } from "typeorm";
-import { DBError } from "../models/error";
+import { Error } from "../models/error";
 
 /**
  * Error message repository
@@ -16,7 +16,7 @@ class ErrorRepository {
     let result: any;
     try {
       let startTime = new Date().getTime();
-      const errorRepository: Repository<DBError> = getManager().getRepository(DBError);
+      const errorRepository: Repository<Error> = getManager().getRepository(Error);
       result = await errorRepository.findOne({ errorCode: code });
       logger.info(`Time Taken  For DB Operation :: ${new Date().getTime() - startTime} ms`);
     } catch (error) {

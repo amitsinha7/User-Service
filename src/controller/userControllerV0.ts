@@ -53,9 +53,8 @@ class UserControllerV0 {
       if (validator.validateUserRequest(userRequestPO)) {
         let user: User = helper.mapUserRequest(userRequestPO);
         logger.info(`Mapping and validation completed ... Before DB Save : ${user.email}`);
-        let userSaved = await userService.createUser(user);
-        let emailIdCreated = helper.mapUserResponse(userSaved);
-        ctx.body = "New User Created with Email Id " + emailIdCreated;
+        await userService.createUser(user);
+        ctx.body = "New User Created";
         ctx.status = 201;
       }
     } catch (error) {
@@ -67,8 +66,8 @@ class UserControllerV0 {
   }
   public async updateUser(ctx: Context) {
     logger.info(`To Update Existing User`);
+    const userId = ctx.params.id;
     try {
-      const userId = ctx.params.id;
       const userRequestPO: IUserRequestPo = JSON.parse(ctx.request.rawBody);
       if (userId === undefined || userId === null || isNaN(userId * 1)) {
         logger.error(`Id Must be a number`);

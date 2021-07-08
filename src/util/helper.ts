@@ -1,7 +1,6 @@
 import { IUserRequest, IUserRequestPo } from "../request/user.request";
 import { ERROR_MSG } from "../constants/user.constant";
 import logger from "../config/logger.winston";
-import * as _ from "lodash";
 import { IUserResponsePo } from "../response/user.response";
 import { User } from "../models/user";
 
@@ -21,7 +20,7 @@ class Helper {
         user.last_name = String(userRequestPO.lastName);
       }
       if (userRequestPO.id != null) {
-        user.id = Number(userRequestPO.lastName);
+        user.id = Number(userRequestPO.id);
       }
     } catch (error) {
       logger.error(`Error While mapping the request :: ${error}`);

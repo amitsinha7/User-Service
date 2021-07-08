@@ -39,13 +39,13 @@ class UserRepository {
   }
   public async createUser(user: User) {
     const userRepository: Repository<User> = getManager().getRepository(User);
-    let userSaved: any;
+
     try {
       let startTime = new Date().getTime();
       if (await userRepository.findOne({ email: user.email })) {
         throw ERROR_MSG.EMAIL_ALREADY_EXIST;
       } else {
-        userSaved = await userRepository.save(user);
+        await userRepository.save(user);
       }
       await userRepository.save(user);
       logger.info(`Time Taken  For DB Operation :: ${new Date().getTime() - startTime} ms`);
@@ -53,7 +53,6 @@ class UserRepository {
       logger.error(`Error At getAllUsers: ${error}`);
       throw ERROR_MSG.SYSTEM_ERROR;
     }
-    return userSaved;
   }
   public async updateUser(user: User) {
     const userRepository: Repository<User> = getManager().getRepository(User);
