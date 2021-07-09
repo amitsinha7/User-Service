@@ -1,5 +1,23 @@
 version: "3.4"
 services:
+  user-service:
+    image: user-service
+    ports:
+      - "3000:3000"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DATABASE: apidb
+      PORT: 3000
+      JWT_SECRET: MySuperSecretPassPhrase
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
+      WHITELIST_URL: "/v0/users"
+      WHITELISTMETHOD: "GET"
+      PROJECT_NAME: user-services
+    restart: always
+    depends_on:
+      - db
   db:
     image: postgres
     restart: unless-stopped
