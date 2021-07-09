@@ -31,7 +31,7 @@ createConnection({
   password: process.env.POSTGRES_PASSWORD || "pass",
   database: process.env.POSTGRES_DATABASE || "apidb",
   entities: ["src/models/*.ts", "./build/src/models/*.js"],
-  synchronize: true,
+  synchronize: false,
   logging: false
 })
   .then(async () => {})
