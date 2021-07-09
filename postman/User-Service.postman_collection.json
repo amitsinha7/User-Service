@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "8bb34360-dc2e-41ee-b611-62ef6430d075",
+		"name": "User-Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All User Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/v0/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v0",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MjU4MDYwNDB9.jc9CGeJSOGdzRv1iyQdVfclDLJG7EY9jjKtSz3oYKWE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"IntegrationChange\",\r\n\t\"email\": \"amit.aaa@gmailtest.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/v0/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v0",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User By Id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MjU4MDYwNDB9.jc9CGeJSOGdzRv1iyQdVfclDLJG7EY9jjKtSz3oYKWE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/v0/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v0",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User By Id Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MjU4MDYwNDB9.jc9CGeJSOGdzRv1iyQdVfclDLJG7EY9jjKtSz3oYKWE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/v0/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v0",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

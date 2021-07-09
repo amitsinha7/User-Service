@@ -1,6 +1,6 @@
 version: "3.4"
 services:
-  db:
+  postgres:
     image: postgres
     restart: unless-stopped
     volumes:
@@ -12,11 +12,12 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: apidb
+
   admin:
     image: adminer
     restart: always
     depends_on:
-      - db
+      - postgres
     ports:
       - 8080:8080
 volumes:

@@ -17,3 +17,5 @@ For Latest JWT Token
 http://localhost:3000/getJWTToken
 
 Something Wrong with TypeORM when we are running as docker serice
+
+For Postman use postman folder
