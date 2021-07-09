@@ -18,4 +18,5 @@ http://localhost:3000/getJWTToken
 
 Something Wrong with TypeORM when we are running as docker serice
 
-For Postman use postman folder
+For Postman please use :
+https://github.com/amitsinha7/User-Service/blob/development/postman/User-Service.postman_collection.json
