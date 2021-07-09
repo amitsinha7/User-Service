@@ -2,7 +2,7 @@ node_modules
 Dockerfile
 .dockerignore
 .github
-dist
+build
 integrationtests
 loadtests
 .example.env

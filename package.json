@@ -8,9 +8,9 @@
     "build-ts": "tsc",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "build": " npm run copyfiles && npm run build-ts",
-    "start": "npm run build-ts && node dist/server.js",
+    "start": "npm run build-ts && node build/server.js",
     "test": "jest",
-    "copyfiles": "copyfiles -f .example.dev dist && copyfiles -f src/swagger.json dist"
+    "copyfiles": "copyfiles -f .example.env build && copyfiles -f src/swagger.json build"
   },
   "repository": {
     "type": "git",
