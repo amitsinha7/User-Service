@@ -25,11 +25,7 @@ const app = new Koa();
 
 createConnection({
   type: "postgres",
-  host: process.env.POSTGRES_HOST || "localhost",
-  port: Number(process.env.POSTGRES_PORT) || 5432,
-  username: process.env.POSTGRES_USER || "user",
-  password: process.env.POSTGRES_PASSWORD || "pass",
-  database: process.env.POSTGRES_DATABASE || "apidb",
+  url: process.env.DATABASE_URL,
   entities: ["src/models/*.ts", "./build/src/models/*.js"],
   synchronize: false,
   logging: false
