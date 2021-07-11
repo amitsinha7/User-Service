@@ -2,15 +2,12 @@ import "./config/env";
 import bodyParser from "koa-bodyparser";
 import Koa from "koa";
 import logger from "./config/logger.winston";
-
 import { request } from "./middleware/trace.http";
-
 import { router } from "./routes/router";
-
 import helmet from "koa-helmet";
 import cors from "@koa/cors";
 import { createConnection } from "typeorm";
-
+import * as path from "path";
 import "reflect-metadata";
 
 import rTracer from "cls-rtracer";
@@ -26,9 +23,12 @@ const app = new Koa();
 createConnection({
   type: "postgres",
   url: process.env.DATABASE_URL,
-  entities: ["src/models/*.ts", "./build/src/models/*.js"],
   synchronize: false,
-  logging: false
+  logging: false,
+  entities: [
+    // assuming _dirname is your project root
+    path.resolve(__dirname + "/models/**/*.js")
+  ]
 })
   .then(async () => {})
   .catch((error: string) => logger.error("TypeORM connection error: ", error));
